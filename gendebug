@@ -1,0 +1,3 @@
+#!/bin/bash
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Debug -DREDIS_PLUS_PLUS_CXX_STANDARD=17 ../

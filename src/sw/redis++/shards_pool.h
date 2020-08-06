@@ -58,6 +58,9 @@ private:
     Connection _connection;
 };
 
+using GuardedConnectionSPtr = std::shared_ptr<GuardedConnection>;
+using GuardedConnections = std::vector<GuardedConnectionSPtr>;
+
 class ShardsPool {
 public:
     ShardsPool() = default;
@@ -81,6 +84,8 @@ public:
 
     // Fetch a connection by node.
     GuardedConnection fetch(const Node &node);
+
+    GuardedConnections fetchAll();
 
     void update();
 

@@ -66,6 +66,8 @@ public:
 
     Subscriber subscriber();
 
+    GuardedConnections getAllMasterNode() { return _pool.fetchAll(); }
+
     template <typename Cmd, typename Key, typename ...Args>
     auto command(Cmd cmd, Key &&key, Args &&...args)
         -> typename std::enable_if<!std::is_convertible<Cmd, StringView>::value, ReplyUPtr>::type;

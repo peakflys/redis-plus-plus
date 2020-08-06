@@ -296,6 +296,20 @@ GuardedConnection ShardsPool::_fetch(Slot slot) {
     return GuardedConnection(pool);
 }
 
+/**
+ *\brief 获取所有的node connection，alter by jefftian 2020/03/04
+ */
+GuardedConnections ShardsPool::fetchAll() {
+    std::vector<GuardedConnectionSPtr> conns;
+    std::lock_guard<std::mutex> lock(_mutex);
+    for(auto poolKV : _pools) {
+        auto &pool = poolKV.second;
+        assert(pool);
+        conns.push_back(std::make_shared<GuardedConnection>(pool));
+    }
+    return conns;
+}
+
 ConnectionOptions ShardsPool::_connection_options(Slot slot) {
     std::lock_guard<std::mutex> lock(_mutex);
 
